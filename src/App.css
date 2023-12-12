@@ -16,3 +16,9 @@
 .single-article {
   border: 4px solid yellow;
 }
+.comment-list {
+  border: 4px solid grey;
+}
+.comment-card {
+  border: 2px solid grey;
+}

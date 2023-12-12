@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react"
 import axiosInstance from "../utilities/axios"
 import CommentCard from "./CommentCard"
 
-const CommentList = ({ articleId }) => {
+const CommentList = ({ articleId, sortByVotes }) => {
   const [comments, setComments] = useState([])
+  //   console.log(comments)
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -11,7 +12,11 @@ const CommentList = ({ articleId }) => {
         const response = await axiosInstance.get(
           `/articles/${articleId}/comments`
         )
-        setComments(response.data.comments)
+        const sortedComments = sortByVotes
+          ? response.data.comments.sort((a, b) => b.votes - a.votes)
+          : response.data.comments
+
+        setComments(sortedComments)
       } catch (error) {
         console.error(
           `Error fetching comments for article ${articleId}:`,
@@ -21,7 +26,7 @@ const CommentList = ({ articleId }) => {
     }
 
     fetchComments()
-  }, [articleId])
+  }, [articleId, sortByVotes])
 
   return (
     <div className="comment-list">
