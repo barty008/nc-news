@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import axiosInstance from "../utilities/axios"
+import CommentList from "./CommentList"
 
 const SingleArticle = () => {
   const { articleId } = useParams()
   const [article, setArticle] = useState(null)
+  const [showComments, setShowComments] = useState(false)
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -22,9 +24,12 @@ const SingleArticle = () => {
   if (!article) {
     return <p key="loading">Loading...</p>
   }
+  const toggleComments = () => {
+    setShowComments((prev) => !prev)
+  }
 
   return (
-    <div key={articleId} className="single-article">
+    <div className="single-article">
       <h2>{article.title}</h2>
       <p>Author: {article.author}</p>
       <p>{article.body}</p>
@@ -33,6 +38,12 @@ const SingleArticle = () => {
         alt={`Image for ${article.title}`}
         width="50%"
       />
+
+      <button onClick={toggleComments}>
+        {showComments ? "Hide Comments" : "Show Comments"}
+      </button>
+
+      {showComments && <CommentList articleId={articleId} />}
     </div>
   )
 }

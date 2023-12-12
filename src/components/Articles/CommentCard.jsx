@@ -5,6 +5,7 @@ const CommentCard = ({ comment }) => {
     <div className="comment-card">
       <p>Author: {comment.author}</p>
       <p>{comment.body}</p>
+      <p>Votes: {comment.votes}</p>
     </div>
   )
 }
