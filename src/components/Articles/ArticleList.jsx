@@ -1,3 +1,4 @@
+// ArticleList.jsx
 import React, { useState, useEffect } from "react"
 import axios from "../utilities/axios"
 import ArticleCard from "./ArticleCard"
@@ -29,7 +30,7 @@ const ArticleList = () => {
         <p>Loading articles!...</p>
       ) : (
         articles.map((article) => (
-          <ArticleCard key={article.title} article={article} />
+          <ArticleCard key={article.article_id} article={article} />
         ))
       )}
     </div>
