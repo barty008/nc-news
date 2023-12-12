@@ -5,6 +5,7 @@ import "./App.css"
 import HomePage from "./components/home/Home"
 import Navigation from "./components/navigation/Navigation"
 import ArticlesPage from "./components/Articles/Articles"
+import SingleArticle from "./components/Articles/SingleArticle"
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/articles" element={<ArticlesPage />} />
+        <Route path="/articles/:articleId" element={<SingleArticle />} />
       </Routes>
     </div>
   )

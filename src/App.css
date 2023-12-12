@@ -13,3 +13,6 @@
 .article-card {
   border: 4px solid navy;
 }
+.single-article {
+  border: 4px solid yellow;
+}
