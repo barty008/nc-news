@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import axiosInstance from "../utilities/axios"
 import CommentList from "./CommentList"
+import CommentForm from "./CommentForm"
 
 const SingleArticle = () => {
   const { articleId } = useParams()
@@ -44,6 +45,10 @@ const SingleArticle = () => {
     setShowComments((prev) => !prev)
   }
 
+  const handleCommentSubmit = (newComment) => {
+    console.log("New comment submitted:", newComment)
+  }
+
   return (
     <div className="single-article">
       <h2>{article.title}</h2>
@@ -64,7 +69,14 @@ const SingleArticle = () => {
       </button>
 
       {showComments && (
-        <CommentList articleId={articleId} sortByVotes={sortByVotes} />
+        <>
+          <CommentForm
+            articleId={articleId}
+            onCommentSubmit={handleCommentSubmit}
+          />
+
+          <CommentList articleId={articleId} sortByVotes={sortByVotes} />
+        </>
       )}
     </div>
   )
