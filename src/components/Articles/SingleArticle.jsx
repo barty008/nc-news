@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import axiosInstance from "../utilities/axios"
 import CommentList from "./CommentList"
+import VoteButton from "../Articles/VoteButton"
 
 const SingleArticle = () => {
   const { articleId } = useParams()
@@ -10,12 +11,14 @@ const SingleArticle = () => {
   const [sortByVotes, setSortByVotes] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [votes, setVotes] = useState(0)
 
   useEffect(() => {
     const fetchArticle = async () => {
       try {
         const response = await axiosInstance.get(`/articles/${articleId}`)
         setArticle(response.data.article)
+        setVotes(response.data.article.votes)
         setLoading(false)
         setError(null)
       } catch (error) {
@@ -55,6 +58,8 @@ const SingleArticle = () => {
         width="50%"
       />
       <br></br>
+
+      <VoteButton articleId={articleId} votes={votes} setVotes={setVotes} />
 
       <button onClick={toggleComments}>
         {showComments ? "Hide Comments" : "Show Comments"}
