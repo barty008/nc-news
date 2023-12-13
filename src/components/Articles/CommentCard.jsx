@@ -1,11 +1,8 @@
 import React from "react"
 
 const CommentCard = ({ comment }) => {
-  console.log(comment)
   const originalDate = comment.created_at
   const formattedDate = new Date(originalDate).toLocaleString()
-
-  console.log(formattedDate)
 
   return (
     <div className="comment-card">

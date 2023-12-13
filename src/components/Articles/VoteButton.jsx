@@ -11,7 +11,9 @@ const VoteButton = ({ articleId, votes, setVotes }) => {
       // optimistic
       setVotes((prevVotes) => prevVotes + (increment ? 1 : -1))
 
-      //   await axiosInstance.patch(`/articles/${articleId}`, { increment })
+      await axiosInstance.patch(`/articles/${articleId}`, {
+        inc_votes: increment ? 1 : -1,
+      })
 
       setLoading(false)
     } catch (error) {
