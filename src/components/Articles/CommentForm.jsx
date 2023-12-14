@@ -19,7 +19,7 @@ const CommentForm = ({ articleId, onCommentSubmit }) => {
       const response = await axiosInstance.post(
         `/articles/${articleId}/comments`,
         {
-          username: "happyamy2016",
+          username: "cooljmessy",
           body: commentText,
         }
       )
