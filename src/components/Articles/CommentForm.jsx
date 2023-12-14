@@ -26,7 +26,6 @@ const CommentForm = ({ articleId, onCommentSubmit }) => {
 
       // reset
       setCommentText("")
-
       onCommentSubmit(response.data.comment)
 
       alert("Comment submitted successfully!")
@@ -47,7 +46,7 @@ const CommentForm = ({ articleId, onCommentSubmit }) => {
         required
       ></textarea>
       <button type="submit" disabled={loading}>
-        Submit Comment
+        {loading ? "Submitting..." : "Submit Comment"}
       </button>
     </form>
   )

@@ -4,7 +4,8 @@ import CommentCard from "./CommentCard"
 
 const CommentList = ({ articleId, sortByVotes }) => {
   const [comments, setComments] = useState([])
-  //   console.log(comments)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -17,22 +18,44 @@ const CommentList = ({ articleId, sortByVotes }) => {
           : response.data.comments
 
         setComments(sortedComments)
+        setLoading(false)
+        setError(null)
       } catch (error) {
         console.error(
           `Error fetching comments for article ${articleId}:`,
           error
         )
+        setError("Error fetching comments. Please try again later.")
+        setLoading(false)
       }
     }
 
     fetchComments()
   }, [articleId, sortByVotes])
 
+  const handleDeleteComment = (deletedCommentId) => {
+    setComments((prevComments) =>
+      prevComments.filter((comment) => comment.comment_id !== deletedCommentId)
+    )
+  }
+
+  if (loading) {
+    return <p>Loading comments...</p>
+  }
+
+  if (error) {
+    return <p className="error-message">{error}</p>
+  }
+
   return (
     <div className="comment-list">
       <h3>Comments</h3>
       {comments.map((comment) => (
-        <CommentCard key={comment.comment_id} comment={comment} />
+        <CommentCard
+          key={comment.comment_id}
+          comment={comment}
+          onDeleteComment={handleDeleteComment}
+        />
       ))}
     </div>
   )
