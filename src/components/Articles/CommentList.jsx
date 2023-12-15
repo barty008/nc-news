@@ -33,6 +33,32 @@ const CommentList = ({ articleId, sortByVotes }) => {
     fetchComments()
   }, [articleId, sortByVotes])
 
+  const handleAddComment = (newComment) => {
+    setComments((prevComments) => [...prevComments, newComment])
+
+    axiosInstance
+      .post(`/articles/${articleId}/comments`, newComment)
+      .then((response) => {
+        const addedComment = response.data.comment
+        console.log("Comment added successfully:", addedComment)
+
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment === newComment ? addedComment : comment
+          )
+        )
+      })
+      .catch((error) => {
+        console.error("Error adding comment:", error)
+
+        setComments((prevComments) =>
+          prevComments.filter(
+            (comment) => comment.comment_id !== newComment.comment_id
+          )
+        )
+      })
+  }
+
   const handleDeleteComment = (deletedCommentId) => {
     setComments((prevComments) =>
       prevComments.filter((comment) => comment.comment_id !== deletedCommentId)

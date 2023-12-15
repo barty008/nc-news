@@ -34,6 +34,7 @@ const CommentCard = ({ comment, onDeleteComment }) => {
           Delete Comment
         </button>
       )}
+
       <p>Votes: {comment.votes}</p>
       <p>Date: {new Date(comment.created_at).toLocaleString()}</p>
     </div>
